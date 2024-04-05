@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchWeather } from "./action";
+import { getDay } from "../../utilits/getDay";
+import { getToday } from "../../utilits/today";
 
 const initialState = {
     data:null,
@@ -8,7 +10,8 @@ const initialState = {
     value: {
         searchValue: "",
         temperature: "metric"
-      }
+      },
+    day: getToday()
 }
 
 const weatherReducer = createSlice({
@@ -23,6 +26,9 @@ const weatherReducer = createSlice({
         },
         setData : (state, action)=>{
             state.data = {...state.data, ...action.payload}
+        },
+        setDay :(state, action)=>{
+            state.day = action.payload
         }
     },
     extraReducers: (builder)=>{
@@ -45,5 +51,5 @@ const weatherReducer = createSlice({
     }
 });
 
-export const {setValue, setError, setData} = weatherReducer.actions
+export const {setValue, setError, setData, setDay} = weatherReducer.actions
 export default weatherReducer.reducer;
